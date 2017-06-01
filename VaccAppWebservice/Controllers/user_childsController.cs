@@ -21,12 +21,6 @@ namespace VaccAppWebservice.Controllers
 
         public List<user_childs> ChildList { get; set; }
 
-        // GET: api/user_childs
-        public IQueryable<user_childs> Getuser_childs()
-        {
-            return db.user_childs;
-        }
-
         [Route("GetChilds/{api_key}")]
         [HttpGet]
         public async Task<List<user_childs>> GetChildByApi(String api_key)
@@ -42,54 +36,6 @@ namespace VaccAppWebservice.Controllers
             }
 
             return ChildList;
-        }
-
-        // GET: api/user_childs/5
-        [ResponseType(typeof(user_childs))]
-        public async Task<IHttpActionResult> Getuser_childs(int id)
-        {
-            user_childs user_childs = await db.user_childs.FindAsync(id);
-            if (user_childs == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user_childs);
-        }
-
-        // PUT: api/user_childs/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Putuser_childs(int id, user_childs user_childs)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != user_childs.child_id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(user_childs).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!user_childsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         [Route("ChildBool/{api_key}")]
@@ -142,36 +88,6 @@ namespace VaccAppWebservice.Controllers
             return BadRequest();
         }
 
-        // POST: api/user_childs
-        [ResponseType(typeof(user_childs))]
-        public async Task<IHttpActionResult> Postuser_childs(user_childs user_childs)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.user_childs.Add(user_childs);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = user_childs.child_id }, user_childs);
-        }
-
-        // DELETE: api/user_childs/5
-        [ResponseType(typeof(user_childs))]
-        public async Task<IHttpActionResult> Deleteuser_childs(int id)
-        {
-            user_childs user_childs = await db.user_childs.FindAsync(id);
-            if (user_childs == null)
-            {
-                return NotFound();
-            }
-
-            db.user_childs.Remove(user_childs);
-            await db.SaveChangesAsync();
-
-            return Ok(user_childs);
-        }
 
         [Route("DeleteChild/{id}/{api_key}")]
         [HttpDelete]
@@ -193,20 +109,6 @@ namespace VaccAppWebservice.Controllers
             }
 
             return BadRequest();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool user_childsExists(int id)
-        {
-            return db.user_childs.Count(e => e.child_id == id) > 0;
         }
     }
 }

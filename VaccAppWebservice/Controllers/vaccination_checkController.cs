@@ -17,12 +17,6 @@ namespace VaccAppWebservice.Controllers
     {
         private VaccineContext db = new VaccineContext();
 
-        // GET: api/vaccination_check
-        public IQueryable<vaccination_check> Getvaccination_check()
-        {
-            return db.vaccination_check;
-        }
-
         // GET: api/vaccination_check/5
         [ResponseType(typeof(vaccination_check))]
         public async Task<IHttpActionResult> Getvaccination_check(int id)
@@ -71,45 +65,7 @@ namespace VaccAppWebservice.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/vaccination_check
-        [ResponseType(typeof(vaccination_check))]
-        public async Task<IHttpActionResult> Postvaccination_check(vaccination_check vaccination_check)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            db.vaccination_check.Add(vaccination_check);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = vaccination_check.vac_check_id }, vaccination_check);
-        }
-
-        // DELETE: api/vaccination_check/5
-        [ResponseType(typeof(vaccination_check))]
-        public async Task<IHttpActionResult> Deletevaccination_check(int id)
-        {
-            vaccination_check vaccination_check = await db.vaccination_check.FindAsync(id);
-            if (vaccination_check == null)
-            {
-                return NotFound();
-            }
-
-            db.vaccination_check.Remove(vaccination_check);
-            await db.SaveChangesAsync();
-
-            return Ok(vaccination_check);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         private bool vaccination_checkExists(int id)
         {

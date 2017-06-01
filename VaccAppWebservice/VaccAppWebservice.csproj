@@ -173,7 +173,6 @@
     <Compile Include="Controllers\vaccinationsController.cs" />
     <Compile Include="Controllers\vaccination_checkController.cs" />
     <Compile Include="Controllers\vaccine_infoController.cs" />
-    <Compile Include="Controllers\vaccine_programController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
